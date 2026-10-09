@@ -1,6 +1,6 @@
 {
-  "name": "hello-world",
-  "scripts": {
-    "start": "node server.js"
-  }
+    "name": "hello-world",
+    "scripts": {
+        "start": "node server.js"
+    }
 }
