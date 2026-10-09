@@ -1,35 +1,14 @@
 const http = require('http');
 const fs = require('fs');
-const path = require('path');
-
-const PORT = process.env.PORT || 3000;
-
-function sendFile(res, filename, contentType) {
-  fs.readFile(path.join(__dirname, filename), (err, data) => {
-    if (err) {
-      res.writeHead(500);
-      res.end('Error loading file');
-      return;
-    }
-    res.writeHead(200, { 'Content-Type': contentType });
-    res.end(data);
-  });
-}
 
 const server = http.createServer((req, res) => {
-  if (req.url === '/api/hello') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ message: 'Hello World' }));
-  } else if (req.url === '/' || req.url === '/index.html') {
-    sendFile(res, 'index.html', 'text/html');
-  } else if (req.url === '/style.css') {
-    sendFile(res, 'style.css', 'text/css');
+  if (req.url === '/style.css') {
+    res.writeHead(200, { 'Content-Type': 'text/css' });
+    res.end(fs.readFileSync('style.css'));
   } else {
-    res.writeHead(404);
-    res.end('Not found');
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(fs.readFileSync('index.html'));
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+server.listen(process.env.PORT || 3000);
