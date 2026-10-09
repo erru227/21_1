@@ -22,7 +22,7 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify({ message: 'Hello World' }));
   } else if (req.url === '/' || req.url === '/index.html') {
     sendFile(res, 'index.html', 'text/html');
-  } else if (req.url === '/Style.css') {
+  } else if (req.url === '/style.css') {
     sendFile(res, 'style.css', 'text/css');
   } else {
     res.writeHead(404);
